@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.8.0'
+    }
+}
+
+publish {
+
+    def groupProjectID = 'com.cis195'
+    def artifactProjectID = 'cis195-calculator-library'
+    def publishVersionID = '0.1.0'
+
+    userOrg = 'relisher'
+    repoName = 'cis195-calculator-library'
+    groupId = groupProjectID
+    artifactId = artifactProjectID
+    publishVersion = publishVersionID
+    desc = 'A library to assist students in cis195-202 taught at the university of pennsylvania'
+    website = 'https://github.com/relisher/cis195-calculator-library'
+}
+
+tasks.withType(Javadoc) {
+        enabled = false
+}
+
+android {
+    compileSdkVersion 26
+
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
